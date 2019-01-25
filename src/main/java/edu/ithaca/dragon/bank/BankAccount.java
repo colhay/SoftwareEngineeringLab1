@@ -50,11 +50,44 @@ public class BankAccount {
      * @return The validity of the email
      */
     public static boolean isEmailValid(String email){
-        if (email.indexOf('@') == -1){
+        /*if (email.indexOf('@') == -1){
             return false;
         }
         else {
             return true;
+        }*/
+        String[] emailParts = email.split("@", 2);
+        if(emailParts.length < 2) return false;
+        String local = emailParts[0];
+        String domain = emailParts[1];
+        String notFirst = ".-_";
+        String notContained = " <>()[];:,@\\";
+
+
+        // Check local
+        if(local.length() <= 0) {
+            return false;
         }
+        else if(Character.isDigit(local.charAt(0)) || notFirst.indexOf(local.charAt(0)) != -1) {
+            return false;
+        }
+        else if(local.contains(" ")) {
+            return false;
+        }
+
+        for(int i=0; i<local.length(); i++) {
+            if(notContained.indexOf(local.charAt(i)) != -1) {
+                return false;
+            }
+        }
+
+        if(domain.indexOf('.') != domain.length() - 4) {
+            return false;
+        }
+        else if(domain.length() < 5) {
+            return false;
+        }
+
+        return true;
     }
 }
