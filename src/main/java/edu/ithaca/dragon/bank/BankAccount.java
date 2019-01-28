@@ -28,10 +28,11 @@ public class BankAccount {
 
     /**
      * @post reduces the balance by amount if amount is non-negative and smaller than balance
+     * @throws IllegalArgumentException if amount is less than 0, or if there are insufficient funds.
      */
-    public void withdraw (double amount)  {
+    public void withdraw (double amount) {
         if(amount < 0) throw new IllegalArgumentException("Cannot withdraw amount less than 0");
-        if(amount > balance) throw new IllegalArgumentException("Cannot withdraw amount greater than account balance");
+        if(amount > balance) throw new IllegalArgumentException("Insufficient Funds for withdrawl.");
         balance -= amount;
 
     }
@@ -52,12 +53,7 @@ public class BankAccount {
      * @return The validity of the email
      */
     public static boolean isEmailValid(String email){
-        /*if (email.indexOf('@') == -1){
-            return false;
-        }
-        else {
-            return true;
-        }*/
+
         String[] emailParts = email.split("@", 2);
         if(emailParts.length < 2) return false;
         String local = emailParts[0];
@@ -83,6 +79,7 @@ public class BankAccount {
             }
         }
 
+        // Check domain
         if(domain.indexOf('.') != domain.length() - 4) {
             return false;
         }
@@ -91,5 +88,19 @@ public class BankAccount {
         }
 
         return true;
+    }
+
+    /**
+     * Checks a given amount to see if it is valid. An amount is valid if
+     * <p><ul>
+     *     <li>The amount has no more than 2 decimal places
+     *     <li>The amount is not negative
+     * </ul><p>
+     *
+     * @param amount the amount who's validity is in question
+     * @return the validity of the given amount
+     */
+    public static boolean isAmountValid(double amount) {
+        return false;
     }
 }
