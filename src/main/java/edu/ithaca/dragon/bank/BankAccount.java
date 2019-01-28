@@ -101,6 +101,10 @@ public class BankAccount {
      * @return the validity of the given amount
      */
     public static boolean isAmountValid(double amount) {
-        return false;
+        String text = Double.toString(amount);
+        int result = text.indexOf(".");
+        if(result < text.length() - 3) return false;
+        if(amount < 0) return false;
+        return true;
     }
 }
